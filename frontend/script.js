@@ -11,25 +11,29 @@ async function cargar(){
     datos.forEach(d => {
 
         html += `
-        <div class="card">
+<div class="card">
 
-        <h3>${d.nombre}</h3>
+<h3>${d.nombre}</h3>
 
-        <p>Especie:
-        ${d.especie}</p>
+<p>Especie:
+${d.especie}</p>
 
-        <p>Periodo:
-        ${d.periodo}</p>
+<p>Periodo:
+${d.periodo}</p>
 
-        <p>Dieta:
-        ${d.dieta}</p>
+<p>Dieta:
+${d.dieta}</p>
 
-        <button onclick="eliminar('${d._id}')">
-        Eliminar
-        </button>
+<button onclick="editar('${d._id}')">
+Editar
+</button>
 
-        </div>
-        `;
+<button onclick="eliminar('${d._id}')">
+Eliminar
+</button>
+
+</div>
+`;
     });
 
     document.getElementById(
@@ -78,3 +82,26 @@ async function eliminar(id){
 }
 
 cargar();
+
+async function editar(id){
+
+    const nombre = prompt("Nuevo nombre:");
+    const especie = prompt("Nueva especie:");
+    const periodo = prompt("Nuevo periodo:");
+    const dieta = prompt("Nueva dieta:");
+
+    await fetch(API + "/" + id, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nombre,
+            especie,
+            periodo,
+            dieta
+        })
+    });
+
+    cargar();
+}
