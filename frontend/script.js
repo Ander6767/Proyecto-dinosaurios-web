@@ -1,5 +1,5 @@
 const API =
-"http://localhost:3000/dinosaurios";
+"/dinosaurios";
 
 async function cargar(){
 
